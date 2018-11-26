@@ -1,0 +1,58 @@
+/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/bin/java "-javaagent:/Applications/IntelliJ IDEA CE.app/Contents/lib/idea_rt.jar=65454:/Applications/IntelliJ IDEA CE.app/Contents/bin" -Dfile.encoding=UTF-8 -classpath /Users/LiamFriel/IdeaProjects/Escape'd/out/production/Escape'd Main
+
+You wake up, you're in a room. It seems to be a foyer. In this foyer, there is a 
+bench, a chest, an unlit candle, and a note. The only way out is a door to the 
+north. It sits closed while you lay on the ground. You stand up, hoping you can 
+get out of this unfamiliar situation.
+>>open chest
+You opened the chest to find a box of matches.
+You have 29 moves left.
+
+>>get matches
+You picked up the matches
+You have 28 moves left.
+
+>>light candle
+You light the candle, there is a loud noise to the north. The door to the north is now unlocked.
+As you walk into the next room, you realize it is a library. Along the wall with all 
+the books there is a desk. On the desk is a pen, and a scroll. There is another 
+door to the north that is locked. You think of your likelihood of getting out,
+your confidence is now lacking.
+
+>>get pen 
+You picked up the pen.
+You have 27 moves left.
+
+>>get book 
+You picked up the open book from the shelves. 
+You have 26 moves left.
+
+>>write book
+You can write on the book, there is only space for one more word. 
+The Autobiography of Zork
+The book is now titled: 'The Autobiography of Zork'.
+After you titled the rest of the autobiography, there is a loud noise to the north. The door to the north is now unlocked.
+
+Leaving the library gives you hope that you can get out and survive. This next room 
+you walk into is a conservatory. There are three instruments, a trumpet, a drum, 
+and a piano. The way out, is a door to the north, but as always, it is locked.
+A piece of sheet music is on a stand in the center of the room.
+>>play trumpet
+*Timbre*
+You have 25 moves left.
+
+>>play piano
+*Tone*
+You have 24 moves left.
+
+>>play drum
+*Time*
+You played all the instruments in the correct order.
+Once you hit the drum, a loud click sounds. It is the door to the north, the door opens to the outside. You are free!
+Once the door opens, you feel freedom. You run outside to the blinding light. All of 
+a sudden you wake up, you're in a room. It seems to be a foyer. In this foyer, 
+there is a bench, a chest, an unlit candle, and a note. The only way out is a door 
+to the north. It sits closed while you lay on the ground. You stand up, hoping you can 
+get out of this unfamiliar situation.
+You have completed the game. Congratulations!
+Process finished with exit code 0
