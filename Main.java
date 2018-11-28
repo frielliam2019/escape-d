@@ -3,23 +3,26 @@ import java.util.Scanner;
 public class Main {
 
     public static boolean inFoyer = true;
-    public static boolean inLibrary = false;
-    public static boolean inConservatory = false;
+    public static boolean inLibrary;
+    public static boolean inConservatory;
     public static boolean chestOpen = false;
     public static boolean hasMatches = false;
     public static boolean candleLit = false;
     public static boolean doorFoyerLocked = true;
     public static boolean doorFoyerOpen = false;
+    public static boolean walkedNorthFoyer = false;
     public static boolean hasPen = false;
     public static boolean hasBook = false;
     public static boolean bookTitled = false;
     public static boolean doorLibraryLocked = true;
     public static boolean doorLibraryOpen = false;
+    public static boolean walkedNorthLibrary = false;
     public static boolean trumpet = false;
     public static boolean piano = false;
     public static boolean drum = false;
     public static boolean doorConservatoryLocked = true;
     public static boolean doorConservatoryOpen = false;
+    public static boolean walkedNorthConservatory = false;
     public static boolean gameWon = false;
     public static int movesLeftOver=30;
     public static Scanner scan;
@@ -27,13 +30,20 @@ public class Main {
     public static void main(String[] args) {
         scan = new Scanner(System.in);
 
-        System.out.printf("\nYou wake up, you're in a room. It seems to be a foyer. In this foyer, there is a \nbench, a chest, an unlit candle, and a note. The only way out is a door to the \nnorth. It sits closed while you lay on the ground. You stand up, hoping you can \nget out of this unfamiliar situation.\n");
-        inFoyer();
-        System.out.printf("As you walk into the next room, you realize it is a library. Along the wall with all \nthe books there is a desk. On the desk is a pen, and a scroll. There is another \ndoor to the north that is locked. You think of your likelihood of getting out,\nyour confidence is now lacking.\n\n");
-        inLibrary();
+    //System.out.println("\nType 'help me' if you need help with a list of command verbs and nouns. Make sure\nto always type two word commands, consisting of 1 verb and 1 noun. e.g. 'help me'. \nFor a list of cheats. You should look at the code. \n\n\n");
+
+        System.out.println("Make sure to always type two word commands, consisting of 1 verb and 1 noun. e.g. 'help me'.  \n");
+        System.out.println("Verbs for use: \n|open   ||  close|\n|light  ||   read|\n|write  ||   play|\n|look   ||    get|\n|walk   |\nNouns for use vary from room to room, explore and look to see objects.\n\n");
+        System.out.printf("\nYou wake up and can't remember anything. You're in a room. It seems to be a foyer. \nIn this foyer, there is a bench, a chest, an unlit candle, and a note. The only way \nout is a door to the north. It sits closed while you lay on the ground. You \nstand up, hoping you can get out of this unfamiliar situation.\n");
+        Foyer();
+        inLibrary=true;
+        System.out.printf("As you walk into the next room, you realize it is a library. Along the wall with all \nthe books there is a desk. On the desk is a pen, and a scroll. There is another \ndoor to the north that is locked. You think of your likelihood of getting out,\nyour confidence is now lacking. The books on the shelves are the same.\n\n");
+        Library();
+        inConservatory=true;
         System.out.printf("Leaving the library gives you hope that you can get out and survive. This next room \nyou walk into is a conservatory. There are three instruments, a trumpet, a drum, \nand a piano. The way out, is a door to the north, but as always, it is locked.\nA piece of sheet music is on a stand in the center of the room.\n");
-        inConservatory();
-        System.out.printf("Once the door opens, you feel freedom. You run outside to the blinding light. All of \na sudden you wake up, you're in a room. It seems to be a foyer. In this foyer, \nthere is a bench, a chest, an unlit candle, and a note. The only way out is a door \nto the north. It sits closed while you lay on the ground. You stand up, hoping you can \nget out of this unfamiliar situation.\n");
+        Conservatory();
+        gameWon = true;
+        System.out.printf("Once the door opens, you feel a sense freedom. You run outside to the blinding light. All of \na sudden you wake up and can't remember anything. You're in a room. It seems to be a foyer. In this foyer, \nthere is a bench, a chest, an unlit candle, and a note. The only way out is a door \nto the north. It sits closed while you lay on the ground. You stand up, hoping you can \nget out of this unfamiliar situation.\n");
         System.out.printf("You have completed the game. Congratulations!");
 
 
@@ -52,12 +62,43 @@ public class Main {
         }
 
 
-        public static boolean inFoyer() {
+        public static boolean Foyer() {
             System.out.print(">>");
             if (inFoyer==true) {
                 String verb = scan.next();
                 String noun = scan.next();
                 switch (verb) {
+//                    case "help":
+//                        switch (noun){
+//                            case "me":
+//                                System.out.println("List of Verbs: \n\nopen || close \nlight || read\nwrite || play \nlook || get\n walk");
+//                                break;
+//                            default:
+//                                System.out.println("Type 'help me' for a list of commands.");
+//                                break;
+//                        }
+//                        break;
+                    case"tp":
+                        switch(noun) {
+                            case"foyer":
+                                System.out.println("You are already there, that would be a waste of a teleport.");
+                                break;
+                            case"library":
+                                inFoyer =false;
+                                inLibrary = true;
+                                System.out.println("You teleported to the Library.");
+                                Library();
+                                break;
+                            case"conservatory":
+                                inFoyer = false;
+                                inConservatory = true;
+                                System.out.println("You teleported to the Conservatory.");
+                                Conservatory();
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
                     case "open":
                         switch (noun) {
                             case "bench":
@@ -65,13 +106,22 @@ public class Main {
                                 break;
                             case "chest":
                                 System.out.println("You opened the chest to find a box of matches.");
-                                chestOpen=true;
+                                chestOpen = true;
                                 break;
                             case "candle":
                                 System.out.println("You can't open the candle.");
                                 break;
                             case "note":
                                 System.out.println("You can't open the note.");
+                                break;
+                            case "door":
+                                if (!doorFoyerLocked) {
+                                    System.out.println("You opened the door to the north.");
+                                    doorFoyerOpen = true;
+                                }
+                                else{
+                                    System.out.println("You tug at the door, but it will not budge.");
+                                }
                                 break;
                             default:
                                 System.out.println("You opened nothing.");
@@ -106,11 +156,10 @@ public class Main {
                                 System.out.println("You can't light the chest.");
                                 break;
                             case "candle":
-                                if(hasMatches==true) {
+                                if (hasMatches == true) {
                                     candleLit = true;
-                                }
-                                else {
-                                System.out.println("You do not have anything to light the candle with.");
+                                } else {
+                                    System.out.println("You do not have anything to light the candle with.");
                                 }
                                 break;
                             case "note":
@@ -214,14 +263,33 @@ public class Main {
                                 System.out.println("You can't get the note.");
                                 break;
                             case "matches":
-                                if(chestOpen==true){
+                                if (chestOpen == true) {
                                     System.out.println("You picked up the matches");
-                                    hasMatches=true;
+                                    hasMatches = true;
+                                } else {
+                                    System.out.println("Where are these matches you want to get?");
                                 }
-                                else{System.out.println("Where are these matches you want to get?");}
                                 break;
                             default:
                                 System.out.println("You got nothing.");
+                                break;
+                        }
+                        break;
+                    case "walk":
+                        switch (noun) {
+                        case"north":
+                            if(doorFoyerOpen) {
+                                System.out.println("You walked out of the foyer through the door to the north.");
+                                inLibrary = true;
+                                inFoyer= false;
+                                walkedNorthFoyer=true;
+                            }
+                            else{
+                                System.out.println("There is a door to the north, but it is closed.");
+                            }
+                            break;
+                            default:
+                                System.out.println("You cannot walk that way. There is a wall there.");
                                 break;
                         }
                         break;
@@ -232,19 +300,27 @@ public class Main {
                 }
                 if(inFoyer=true) {
                     if (hasMatches == true) {
-                        if (hasMatches && candleLit == true) {
+                        if (hasMatches && candleLit == true&&doorFoyerLocked) {
                             doorFoyerLocked = false;
-                            doorFoyerOpen = true;
                             System.out.println("You light the candle, there is a loud noise to the north. The door to the north is now unlocked.");
+                            moveCounter();
+                            Foyer();
+
                         }
                         else{
-                            moveCounter();
-                            inFoyer();
+                            if(walkedNorthFoyer) {
+                                inFoyer = false;
+                                inLibrary = true;
+                            }
+                            else{
+                                moveCounter();
+                                Foyer();
+                            }
                         }
                     }
                     else{
                         moveCounter();
-                        inFoyer();
+                        Foyer();
                     }
                 }
                 else {
@@ -252,18 +328,35 @@ public class Main {
                 }
                 return inFoyer = false;
             }
-            else {
-                inFoyer();
-            }
             return inLibrary = true;
         }
 
-    public static boolean inLibrary() {
+    public static boolean Library() {
         System.out.print(">>");
-        if (inLibrary=true) {
+        if (inLibrary==true) {
             String verb = scan.next();
             String noun = scan.next();
             switch (verb) {
+                case "tp":
+                    switch (noun) {
+                        case"library":
+                            System.out.println("You are already there, that would be a waste of a teleport.");
+                            break;
+                        case "foyer":
+                            inLibrary = false;
+                            inFoyer = true;
+                            System.out.println("You teleported to the Foyer.");
+                            Foyer();
+                            break;
+                        case "conservatory":
+                            inLibrary = false;
+                            inConservatory = true;
+                            System.out.println("You teleported to the Conservatory.");
+                            Conservatory();
+                        break;
+                         default:
+                    break;
+                    }
                 case "open":
                     switch (noun) {
                         case "shelves":
@@ -279,6 +372,15 @@ public class Main {
                         case "scroll":
                             System.out.println("The scroll, unravels, there is writing that says, 'Share your story.' ");
                             break;
+                        case "door":
+                            if(!doorLibraryLocked){
+                                doorLibraryOpen = true;
+                                System.out.println("You opened the door in the library, leading to the next room.");
+                            }
+                            else{
+                                System.out.println("As you turn and pull the knob of the door, you find it is locked and cannot get out.");
+                            }
+                            break;
                         default:
                             System.out.println("You opened nothing.");
                             break;
@@ -287,6 +389,7 @@ public class Main {
                 case "close":
                     switch (noun) {
                         case "shelves":
+                        case "shelf":
                             System.out.println("You cannot close the shelves.");
                             break;
                         case "book":
@@ -306,6 +409,7 @@ public class Main {
                 case "light":
                     switch (noun) {
                         case "shelves":
+                        case "shelf":
                             System.out.println("You have nothing to light with.");
                             break;
                         case "book":
@@ -325,6 +429,7 @@ public class Main {
                 case "read":
                     switch (noun) {
                         case "shelves":
+                        case "shelf":
                             System.out.println("You read the shelves, you read nothing.");
                             break;
                         case "book":
@@ -345,6 +450,7 @@ public class Main {
                     if(hasPen==true){
                     switch (noun) {
                         case "shelves":
+                        case "shelf":
                             System.out.println("You wrote, 'I waz here' on the shelves.");
                             break;
                         case "book":
@@ -370,6 +476,7 @@ public class Main {
                 case "play":
                     switch (noun) {
                         case "shelves":
+                        case "shelf":
                             System.out.println("No playing on the shelves. That is dangerous.");
                             break;
                         case "book":
@@ -389,6 +496,7 @@ public class Main {
                 case "look":
                     switch (noun) {
                         case "shelves":
+                        case "shelf":
                             System.out.println("You look at the shelves. There is an open book on one of shelves. ");
                             break;
                         case "book":
@@ -409,6 +517,7 @@ public class Main {
                 case "get":
                     switch (noun) {
                         case "shelves":
+                        case "shelf":
                             System.out.println("You got no shelves.");
                             break;
                         case "book":
@@ -427,6 +536,24 @@ public class Main {
                             break;
                     }
                     break;
+                case "walk":
+                    switch (noun) {
+                    case"north":
+                        if(doorLibraryOpen) {
+                            System.out.println("You walked out of the library through the door to the north.");
+                            inConservatory = true;
+                            inLibrary = false;
+                            walkedNorthLibrary=true;
+                        }
+                        else{
+                            System.out.println("There is a door to the north, but it is closed.");
+                        }
+                        break;
+                    default:
+                        System.out.println("You cannot walk that way. There is a wall there.");
+                        break;
+                }
+                    break;
                 default:
                     System.out.println("Invalid Command");
                     break;
@@ -435,24 +562,31 @@ public class Main {
             if(inLibrary=true) {
                 if (hasPen == true||hasBook==true) {
                     if (hasPen==true&&hasBook == true) {
-                        if(bookTitled==true){
+                        if(bookTitled==true&&doorLibraryLocked){
                             doorLibraryLocked = false;
-                            doorLibraryOpen = true;
                             System.out.println("After you titled the rest of the autobiography, there is a loud noise to the north. The door to the north is now unlocked.\n");
+                            moveCounter();
+                            Library();
                         }
                         else{
-                            moveCounter();
-                            inLibrary();
+                            if(walkedNorthLibrary) {
+                                inLibrary = false;
+                                inConservatory = true;
+                            }
+                            else{
+                                moveCounter();
+                                Library();
+                            }
                         }
                     }
                     else{
                         moveCounter();
-                        inLibrary();
+                        Library();
                     }
                 }
                 else{
                     moveCounter();
-                    inLibrary();
+                    Library();
                 }
             }
             else {
@@ -461,16 +595,36 @@ public class Main {
             return inLibrary = false;
         }
         else {
-            inLibrary();
+            Library();
         }
         return inConservatory = true;
     }
-    public static boolean inConservatory() {
+    public static boolean Conservatory() {
         System.out.print(">>");
-        if (inConservatory=true) {
+        if (inConservatory==true) {
             String verb = scan.next();
             String noun = scan.next();
             switch (verb) {
+                case "tp":
+                    switch (noun) {
+                        case"conservatory":
+                            System.out.println("You are already there, that would be a waste of a teleport.");
+                            break;
+                        case "foyer":
+                            inConservatory = false;
+                            inFoyer = true;
+                            System.out.println("You teleported to the Foyer.");
+                            Foyer();
+                            break;
+                        case "library":
+                            inConservatory = false;
+                            inLibrary = true;
+                            System.out.println("You teleported to the Library.");
+                            Library();
+                            break;
+                        default:
+                            break;
+                    }
                 case "open":
                     switch (noun) {
                         case "trumpet":
@@ -485,6 +639,15 @@ public class Main {
                         case "music":
                         case "sheet":
                             System.out.println("You open the sheet music, there are no notes written. However, it says 'Timbre, Tone, and Time'.");
+                            break;
+                        case "door":
+                            if(!doorConservatoryLocked){
+                                doorConservatoryOpen = true;
+                                System.out.println("You opened the door in the conservatory. You taste freedom. ");
+                            }
+                            else{
+                                System.out.println("Alright, all the other doors in this terrible situation have been locked. Try to figure out the dang way to unlock it.");
+                            }
                             break;
                         default:
                             System.out.println("You opened nothing.");
@@ -682,6 +845,22 @@ public class Main {
                             break;
                     }
                     break;
+                case "walk":
+                    switch (noun) {
+                        case"north":
+                            if(doorConservatoryOpen) {
+                                inConservatory = false;
+                                walkedNorthConservatory=true;
+                            }
+                            else{
+                                System.out.println("There is a door to the north, but it is closed.");
+                            }
+                            break;
+                        default:
+                            System.out.println("You cannot walk that way. There is a wall there.");
+                            break;
+                    }
+                break;
                 default:
                     System.out.println("Invalid Command");
                     break;
@@ -690,30 +869,37 @@ public class Main {
             if(inConservatory==true){
                 if (piano==true){
                     if (trumpet==true){
-                        if(drum==true){
+                        if(drum==true&&doorConservatoryLocked){
                             doorConservatoryLocked = false;
-                            doorConservatoryOpen = true;
-                            System.out.println("You played all the instruments in the correct order.\nOnce you hit the drum, a loud click sounds. It is the door to the north, the door opens to the outside. You are free!");
+                            System.out.println("You played all the instruments in the correct order.\nOnce you hit the drum, a loud click sounds.");
+                            moveCounter();
+                            Conservatory();
                         }
                         else{
-                            moveCounter();
-                            inConservatory();
+                            if(walkedNorthConservatory) {
+                                inConservatory = false;
+                            }
+                            else{
+                                moveCounter();
+                                Conservatory();
+                            }
                         }
+
                     }
                     else{
                         moveCounter();
-                        inConservatory();
+                        Conservatory();
                     }
                 }
                 else{
                     moveCounter();
-                    inConservatory();
+                    Conservatory();
                 }
             }
             return inConservatory = false;
         }
         else {
-            inConservatory();
+            Conservatory();
         }
         return gameWon = true;
     }
