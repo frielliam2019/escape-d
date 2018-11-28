@@ -12,7 +12,7 @@ public class Main {
     public static boolean doorFoyerOpen = false;
     public static boolean walkedNorthFoyer = false;
     public static boolean hasPen = false;
-    public static boolean hasBook = false;
+    public static boolean hasBook = true;
     public static boolean bookTitled = false;
     public static boolean doorLibraryLocked = true;
     public static boolean doorLibraryOpen = false;
@@ -33,7 +33,7 @@ public class Main {
     //System.out.println("\nType 'help me' if you need help with a list of command verbs and nouns. Make sure\nto always type two word commands, consisting of 1 verb and 1 noun. e.g. 'help me'. \nFor a list of cheats. You should look at the code. \n\n\n");
 
         System.out.println("Make sure to always type two word commands, consisting of 1 verb and 1 noun. e.g. 'help me'.  \n");
-        System.out.println("Verbs for use: \n|open   ||  close|\n|light  ||   read|\n|write  ||   play|\n|look   ||    get|\n|walk   |\nNouns for use vary from room to room, explore and look to see objects.\n\n");
+        System.out.println("Verbs for use: \n|open   ||  close|\n|light  ||   read|\n|write  ||   play|\n|look   ||    get|\n|go     |\nNouns for use vary from room to room, explore and look to see objects.\n\n");
         System.out.printf("\nYou wake up and can't remember anything. You're in a room. It seems to be a foyer. \nIn this foyer, there is a bench, a chest, an unlit candle, and a note. The only way \nout is a door to the north. It sits closed while you lay on the ground. You \nstand up, hoping you can get out of this unfamiliar situation.\n");
         Foyer();
         inLibrary=true;
@@ -231,13 +231,13 @@ public class Main {
                     case "look":
                         switch (noun) {
                             case "bench":
-                                System.out.println("You look at the bench. On it there is a note sitting on top.");
+                                System.out.println("You look at the bench. There is a note sitting on top.");
                                 break;
                             case "chest":
                                 System.out.println("You look at the chest, it is closed.");
                                 break;
                             case "candle":
-                                System.out.println("You look at the candle, it sits in the middle of the room.");
+                                System.out.println("You look at the candle, it sits unlit in the middle of the room.");
                                 break;
                             case "note":
                                 System.out.println("You look at the note, there is writing on it.");
@@ -275,7 +275,7 @@ public class Main {
                                 break;
                         }
                         break;
-                    case "walk":
+                    case "go":
                         switch (noun) {
                         case"north":
                             if(doorFoyerOpen) {
@@ -454,12 +454,13 @@ public class Main {
                             System.out.println("You wrote, 'I waz here' on the shelves.");
                             break;
                         case "book":
-                            if(hasBook==true){
-                            System.out.print("You can write on the book, there is only space for one more word. \nThe Autobiography of ");
-                            String bookTitle = scan.next();
-                            System.out.println("The book is now titled: 'The Autobiography of "+bookTitle+"'.");
-                            bookTitled=true;}
-                            else{System.out.println("You would write on the book, but it is not in your hands.");}
+//                            if(hasBook==true){
+//                            System.out.print("You can write on the book, there is only space for one more word. \nThe Autobiography of ");
+//                            String bookTitle = scan.next();
+//                            System.out.println("The book is now titled: 'The Autobiography of "+bookTitle+"'.");
+//                            bookTitled=true;}
+//                            else{System.out.println("You would write on the book, but it is not in your hands.");}
+                            bookTitled = true;
                             break;
                         case "pen":
                             System.out.println("You cannot write anything right now.");
@@ -522,7 +523,6 @@ public class Main {
                             break;
                         case "book":
                             System.out.println("You picked up the open book from the shelves. ");
-                            hasBook=true;
                             break;
                         case "pen":
                             System.out.println("You picked up the pen.");
@@ -536,7 +536,7 @@ public class Main {
                             break;
                     }
                     break;
-                case "walk":
+                case "go":
                     switch (noun) {
                     case"north":
                         if(doorLibraryOpen) {
@@ -845,7 +845,7 @@ public class Main {
                             break;
                     }
                     break;
-                case "walk":
+                case "go":
                     switch (noun) {
                         case"north":
                             if(doorConservatoryOpen) {
